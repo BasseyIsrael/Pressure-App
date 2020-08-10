@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Test</title>
+</head>
+
+<body>
+  <h1>This is a test</h1>
+  <p>yeah Yeah</p>
+  <table id="rankings-table" class="table">
+    <thead>
+      <tr>
+        <th>Ranking</th>
+        <th>Full Name</th>
+        <th>Points</th>
+      </tr>
+		</thead>
+		<tbody>
+			
+		</tbody>
+  </table> 
+
+  <script type="text/javascript">
+    const rankingBody = document.querySelector("#rankings-table > tbody");
+    
+    function loadRankings(){
+      const request = new XMLHttpRequest();
+
+      request.open("get", "rankings.json");
+      request.onload = function(){
+        
+        const json = JSON.parse(request.responseText);
+        populateRankings(json);
+        
+      }
+      request.send();
+    }
+    
+    function populateRankings(json){
+      json.forEach((row)=>{
+        const tr = document.createElement("tr");
+        row.forEach((cell) => {
+          const td = document.createElement("td");
+          td.textContent = cell;
+          tr.appendChild(td);
+          
+        });
+
+				rankingBody.appendChild(tr);
+      });
+      
+    }
+    document.addEventListener("DOMContentLoaded", () => {loadRankings(); });
+  </script> 
+</body>
+
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>i-SBHP</title>
+    <link rel="stylesheet" href="css/mainwindow.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+</head>
+<body>
+    <div class="wrapper_inner">
+        <div class="vertical_wrap">
+            <div class="backdrop"></div> 
+            <div class="vertical_bar">
+                <div class="profile_info">
+                    <div class="img_holder">
+                        <img src="rightside.jpg" alt="profile pic">
+                    </div>
+                    <p class="title"><strong>Israel Bassey</strong></p>
+                    <p class="sub_title">israelbssy@yahoo.com</p>
+                    <button onclick="click_()">button</button>
+                    
+                </div>
+                <ul class="menu2">
+                    <li id="fuck"><a href="">
+                        <span class="icon">
+                            <i class="fas fa-file-import"></i>
+                        </span>
+                        <span class="import_">Import & Export</span>
+                    </a></li>
+                    <li><a href="#">
+                        <span class="icon">
+                            <i class="fas fa-file-export"></i>
+                        </span>
+                        <span class="calculate">Calculate</span>
+                    </a></li>
+                    <li><a href="">
+                        <span class="icon">
+                            <i class="fas fa-file-export"></i>
+                        </span>
+                        <span class="data_analysis">Data Analysis</span>
+                    </a></li>
+                    <li><a href="">
+                        <span class="icon">
+                            <i class="fas fa-file-export"></i>
+                        </span>
+                        <span class="Settings">Settings</span>
+                    </a></li>
+                </ul>
+                <ul class="menu3">
+                    <li><a href="">
+                        <i class="fas fa-power-off"></i>
+                    </a></li>
+                    <li><a href="">
+                        <i class="fas fa-window-minimize"></i>
+                    </a></li>
+                    <li><a href="">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a></li>
+                </ul> 
+            </div>
+            
+        </div>
+        <div class="main_container">
+            <div class="top_bar">
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="logo_">
+                    <img src="" alt=""><span>i-SBHP</span>
+                </div>
+            </div>
+            <div id="import_export_area">
+                <span class="info">
+                    <i></i>
+                </span>
+                <div class="import_area">
+                    <span>Import</span>
+                    <button id="import_button">Import</button>
+                </div>
+                <div class="export_area">
+                    <span>Export</span>
+                    <button class="export_button">Export</button>
+                </div>
+                <div class="preview_area">
+                    <p>This is the preview area</p>
+            </div>
+            
+            </div>
+            
+        </div>
+        <div class="main_container2">
+
+        </div>
+    </div>
+<script type="text/javascript">
+    function click_(evt){
+        document.getElementById("import_export_area").style.display = "block"
+    }
+    document.getElementById("fuck").addEventListener(mousedown, click_())
+
+</script>
+</body>
+</html>

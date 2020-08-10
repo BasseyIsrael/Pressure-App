@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>i-SBHP</title>
+    <link rel="stylesheet" href="css/mainwindow.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
+    <script src="main.js"></script>
+    <script src = https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js></script>
+</head>
+<body>
+    <div class="wrapper_inner">
+        <div class="vertical_wrap">
+            <div class="backdrop"></div> 
+            <div class="vertical_bar">
+                
+                <p class="logo_"><i class="fab fa-pushed" style="font-size: 15px; padding: 1px 0px 1px 0px"></i><strong> Static</strong></p>
+                
+                <div class="profile_info">
+                    <div class="img_holder">
+                        <img src="rightside.jpg" alt="profile pic">
+                    </div>
+                    <p class="title"><strong>Israel Bassey</strong></p>
+                    <p class="sub_title">israelbssy@yahoo.com</p>
+                    
+                    
+                </div>      
+                <div class="menu2">         
+                    <span id="test" class="icon">
+                        </span>
+                        <button id="import" class="tablinks" onclick="import_tab()"><i class="fas fa-file-import"></i>   Import & Export</button>
+                    
+                    <span class="icon">
+                    
+                    </span>
+                    <button id="calculate" class="tablinks" onclick="calculate_tab()"><i class="fas fa-square-root-alt"></i>      Calculate</button>
+                    <span class="icon">
+                    
+                    </span>
+                    <button id="data_analysis" class="tablinks" onclick="data_tab()"><i class="fas fa-chart-area"></i>     Data Analysis</button>
+                
+                    <span class="icon">
+                        
+                    </span>
+                    <button id="settings" class="tablinks" onclick="settings_tab()"><i class="fas fa-cogs"></i>    Settings</button>
+                </div>  
+                <ul class="menu3">
+                    <li><a href="">
+                        <i class="fas fa-power-off"></i>
+                    </a></li>
+                    <li><a href="">
+                        <i class="fas fa-window-minimize"></i>
+                    </a></li>
+                    <li><a href="">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a></li>
+                </ul> 
+            </div>
+            
+        </div>
+        <div class="main_container">
+            <div class="top_bar">
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <input type="search" style="border-width: 0 0 1px 0px; outline: none; position: absolute; right: 550px;font-size: 11px; background: none; border-color: rgba(53, 36, 129, 0.774); color: white; width: 180px" placeholder="Search Projects">
+                <div class="top_icons">
+                    <ul class="top_icons">
+                        <li><a href="">
+                            <i class="fas fa-user" style="color: rgba(204, 204, 204, 0.63)"></i>
+                        </a></li>
+                        <li><a href="">
+                            <i class="fas fa-bell" style="margin-left: 25px; color: rgba(204, 204, 204, 0.61)"></i>
+                        </a></li>
+                        <li><a href="">
+                            <i class="fas fa-cog" style="margin-left: 25px; color: rgba(204, 204, 204, 0.616)"></i>
+                        </a></li>  
+                    </ul>
+                </div> 
+            </div>
+            <div id="import_export_area" class="tabcontent">
+                <h3 class="intro"> <i class="far fa-file-archive"></i> Import & Export</h3>
+                <div id="image_">
+                   <img src="image.png" alt="" width="16px", height="16px">
+                   <p id="info">You can import files and export here. Please select an excel file with headers as 'pressure', 'temperature', 'volume'</p>
+                </div>
+                <div class="dialog">
+                    <div class="import_area">
+                        <h4 class="lovely">Import</h4>
+                        <input type="file" name="fileToUpload" id="fileToUpload" class="inputfile"/>
+                        <div id="import_">
+                            <i class="fas fa-download" style="font-size: 22px"></i><br>
+                        <label for="fileToUpload" id="upload_label">Choose a file</label>
+                    </div>
+                    <br>
+                        <button id="import_button" onclick="loadData()">
+                            <i class="fas fa-file-import"></i></i> Import
+                        </button>
+                    </div>
+                    <div class="export_area">
+                        <h4 class="lovely">Export</h4>
+                        <select name = "export" id="exportDrop" aria-placeholder="File exxport Type">
+                            <option value = "filetoUpload" >File Export Type</option>
+                            <option value = "excel">xlsx</option>
+                            <option value = "pdf">pdf</option>
+                            <option value = "doc">docx</option>
+                            <option value = "txt">txt</option>
+                        </select><br>
+                        <button id="preview_button"><i class="far fa-file-pdf"></i>  Preview</button>
+                        <button id="export_button"><i class="fas fa-file-export"></i>   Export</button>
+                    </div>
+                </div>
+                <div class="preview_area">
+                    <table id="previewTable">
+                        <thead>
+                            <tr>
+                                <th class="prevHeader">S/N</th>
+                                <th class="prevHeader">Well Name</th>
+                                <th class="prevHeader">WH_Temp (degR)</th>
+                                <th class="prevHeader">WH_Pres (psia)</th>
+                                <th class="prevHeader">TD (ft)</th>
+                                <th class="prevHeader">TVD (ft)</th>
+                                <th class="prevHeader">T_Grad (degR/100ft)</th>
+                                <th class="prevHeader">P_Grad (psia/100ft)</th>
+                                <th class="prevHeader">Gravity</th>
+                            </tr>
+                        </thead>
+                        <tbody id="prevBody">
+                            
+                        </tbody>																												
+                    </table>
+                </div>
+            </div>
+
+            <div id="calculate_area" class="tabcontent">
+                <h3 class="intro"><i class="fas fa-wave-square"></i> Calculation</h3>
+                <div style="display: flex; position: absolute; right: 50px; top: 63px" >
+                    <button class="but_calc">Calculate with import</button>
+                    <button class="but_calc1">Calculate with input</button>
+                </div>
+                <div id="cover">
+                    <div id="columnOne">
+                        <div id="user_info">
+                            <h4 class="contentHeader">User Information</h4>
+
+                           
+
+                            <div class="input_items">
+                                <label class="firstLabel" for="company">Company </label><input class="firstInput" type="text" id="company" name="company"><br>
+                                <label class="firstLabel" for="field">Field </label><input class="firstInput" type="text" id="field" name="field"><br>
+                                <label class="firstLabel" for="location">Location </label><input class="firstInput" type="text" id="location" name="location"><br>
+                                <label class="firstLabel" for="well">Well Label </label><input class="firstInput" type="text" id="well" name="well"><br>
+                                <label class="firstLabel" for="platform">Platform </label><input class="firstInput" type="text" id="platform" name="platform"><br>
+                                <label class="firstLabel" for="analyst">Analyst Name </label><input class="firstInput" type="text" id="analyst" name="analyst"><br>
+                                <label class="firstLabel" for="analysis_date">Date of Analysis </label><input class="firstInput" type="text" id="analysis_date" name="analysis_date"><br> 
+                            </div>
+                            <button id="but_user">Save</button>
+                        </div>
+                        
+                        <div id="fluid_description">
+                            <h4 class="contentHeader">Fluid Description</h4>
+
+
+                            <div class="input_items">
+                                <label  class="firstLabel" for="fluid">Hydrocarbon </label>
+                                <select name = "fluid" class="firstDrop">
+                                    <option value = "oil">Oil</option>
+                                    <option value = "gas" selected>Gas</option>
+                                    <option value = "Water">Water</option>
+                                </select><br>
+                                <label  class="firstLabel" for="fluid_type">Fluid Type </label>
+                                <select name = "fluid_type" class="firstDrop">
+                                        <option value = "Ordinary Black Oil">Black Oil</option>
+                                        <option value = "Dry gas">Dry Gas</option>
+                                        <option value = "Wet Gas" selected>Wet Gas</option>
+                                        <option value = "Wet Gas">Gas Condensate</option>
+                                    </select><br>
+                                <label  class="firstLabel" for="impurities">Impurities </label><input class="firstInput" type="text" id="impurities" name="impurities"><br>
+                            </div>
+                            <button id="but_user">Save</button>
+                        </div>
+                        <div id="well_completion">
+                            <h4 class="contentHeader">Well Completion</h4>
+
+
+                            <div class="input_items">
+                                <label class="firstLabel" for="completionType">Completion Type </label>
+                                <select name = "completionType" class="firstDrop">
+                                        <option value = "Cased Hole" selected>Cased Hole</option>
+                                        <option value = "Open Hole">Open Hole</option>
+                                        <option value = "Slotted Liner">Slotted Liner</option>
+                                    </select><br>
+                                <label class="firstLabel" for="sandControl">Sand Control </label>
+                                <select name = "sandControl" class="firstDrop">
+                                    <option value = "none" selected>None</option>
+                                    <option value = "gravel pack">Gravel Pack</option>
+                                    <option value = "prepacked screen">Prepacked Screen</option>
+                                    <option value = "wire wrapped screen">Slotted Liner</option>
+                                </select><br>
+                            </div>
+                            <button id="but_user">Save</button>  
+                        </div>
+                        
+                    </div>
+                    <div id="columnTwo">    
+                        <div id="well_info">                        
+                            <h4 class="contentHeader">Flow Information</h4>
+
+
+                            <div class="input_items">
+                                <label class="firstLabel" for="flowType">Flow Type </label>
+                                <select name = "flowType" class="firstDrop">
+                                    <option value = "Tubing" >Tubing</option>
+                                    <option value = "Annular">Annular</option>
+                                    <option value = "tubing and annular">Both</option>
+                                    <option value = "Wet Gas">Gas Condensate</option>
+                                </select><br>
+                            </div>   
+                            <button id="but_user">Save</button>                     
+                        </div>                
+                    
+                        <div id="calc_param">
+                            <h4 class="contentHeader">Well Information</h4>
+
+
+                            <div class="input_items">
+                                <label class="firstLabel" for="topTemp">Well Head Temperature </label><input type="number" class="lastInput" type="text" id="topTemp" name="topTemp">
+                                <select name = "topTemp" class="firstDrop">
+                                    <option value = "rankine" selected>degR</option>
+                                    <option value = "celcius">degC</option>
+                                    <option value = "farenheit">degF</option>
+                                    <option value = "kelvin" >K</option>
+                                </select><br>
+                                <label class="firstLabel" for="topPres">Well Head Pressure </label><input type="number" class="lastInput" type="text" id="topPres" name="topPres">
+                                <select name = "topPres" class="firstDrop">
+                                    <option value = "psi" >psi</option>
+                                    <option value = "bar">bar</option>
+                                    <option value = "atm">atm</option>
+                                </select><br>
+                                <label class="firstLabel" for="depth">Well depth(TVD) </label><input type="number" class="lastInput" type="text" id="depth" name="depth">
+                                <select name = "depth" class="firstDrop">
+                                    <option value = "feet">feet</option>
+                                    <option value = "metre">m</option>
+                                </select><br>
+                                <label class="firstLabel" for="totalDepth">Well Depth(TD) </label><input type="number" class="lastInput" type="text" id="totalDepth" name="totalDepth">
+                                <select name = "totalDepth" class="firstDrop">
+                                    <option value = "feet">feet</option>
+                                    <option value = "metre">m</option>
+                                </select><br>
+                                <label class="firstLabel" for="tempGrad">Temperature Gradient </label><input type="number" class="lastInput" type="text" id="tempGrad" name="tempGrad">
+                                <select name = "tempGrad" class="firstDrop">
+                                    <option value = "rankine" selected>R/100ft</option>
+                                    <option value = "rankineM">R/100m</option>
+                                    <option value = "celcius">C/100ft</option>
+                                    <option value = "celciusM">C/100m</option>
+                                    <option value = "farenheit">F/100ft</option>
+                                    <option value = "farenheitM">F/100m</option>
+                                    <option value = "kelvin" >K/100ft</option>
+                                    <option value = "kelvinM">K/100m</option>
+                                </select><br>
+                                <label class="firstLabel" for="presGrad">Pressuere Gradient </label><input type="number" class="lastInput" type="text" id="presGrad" name="presGrad">
+                                <select name = "presGrad" class="firstDrop">
+                                    <option value = "psi" selected>psi/100ft</option>
+                                    <option value = "psiM" >psi/100m</option>
+                                    <option value = "bar">bar/100ft</option>
+                                    <option value = "barM">bar/100m</option>
+                                    <option value = "atm">atm/100ft</option>
+                                    <option value = "atmM">atm/100m</option>                                    
+                                </select><br>
+                                <label class="firstLabel" for="gravity">Produced Gas Gravity </label><input type="number" class="lastInput" type="text" id="gravity" name="gravity"><br>
+                                <label class="firstLabel" for="interval">Depth Intervals </label><input type="number" class="lastInput" type="text" id="interval" name="interval">
+                                <select name = "interval" class="firstDrop">
+                                    <option value = "feet" >feet</option>
+                                    <option value = "metre">m</option>                                    
+                                </select><br>
+                            </div>
+                            <button id="but_user">Save</button>  
+                        </div>
+                        <div id="output">
+                            <table id="outputTable">
+                                <thead>
+                                    <tr>
+                                        <th class="outHeader" style="padding-left: 5px">S/N</th>
+                                        <th class="outHeader" >Depth</th>
+                                        <th class="outHeader" >Gravity</th>
+                                        <th class="outHeader" >Pressure</th>
+                                        <th class="outHeader" >Temperature</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                </tbody>																												
+                            </table>
+
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+
+            <div id="data_area" class="tabcontent">
+                <h3 class="intro"><i class="fab fa-accusoft"></i> Dashboard</h3>
+                <div id="bigData">
+                    <div id="vsDepth">
+                        <div class="canDiv1">
+                            <canvas id="myCanvas1"></canvas>
+                        </div>
+                        <div class="canDiv2">  
+                            <canvas id="myCanvas2"></canvas>
+                        </div>
+                    </div>
+                    <div id="vsTime">
+                        <div class="canDiv3">
+                            <canvas id="myCanvas3"></canvas>
+                        </div>
+                        <div id="realData">
+                            <div class="dataValues"> 
+                                <p>Depth</p>                           
+                            </div>
+                            <div class="dataValues">
+                                <p>Pressure</p>                                
+                            </div>
+                            <div class="dataValues">   
+                                <p>Specific Gravity</p>                             
+                            </div>
+                            <div class="dataValues">
+                                <p>Shut-In Time</p>                      
+                            </div>
+                            <div class="dataValues">
+                                <p>Bottom-Hole Pressure</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div id="settings_area" class="tabcontent">
+                <h3 class="intro">Settings</h3>
+            </div>
+        </div>
+   </div>
+<script>
+    
+    const dataBodi = document.querySelector("#previewTable > tbody");
+        
+    function loadData(){
+        const request = new XMLHttpRequest();
+
+        request.open("get", "data.json");
+        request.onload = function(){
+            
+            const json = JSON.parse(request.responseText);
+            populateData(json);
+            
+        }
+        request.send();
+    };
+    
+    function populateData(json){
+        json.forEach((row)=>{
+            console.log(row);
+            const tr = document.createElement("tr");
+            tr.setAttribute("id", "prevbody");
+            row.forEach((cell) => {
+                const td = document.createElement("td");
+                td.textContent = cell;
+                tr.appendChild(td);
+            
+            });
+
+            dataBodi.appendChild(tr);
+        });
+    
+    }
+    
+    const xlabels = [];
+    const ypres = [];
+    const storage = [];
+    async function getData(){
+         const response = await fetch('depth.csv');
+         const data = await response.text();
+
+         const table = data.split('\n').slice(1);
+         table.forEach(elt => {
+             const columns = elt.split(',')
+             const depths = columns[0];
+             xlabels.push(depths);
+             const press = columns[1];
+             ypres.push(press);
+             console.log(depths,press);
+             
+         });
+         console.log(xlabels);
+         console.log(ypres);
+    };
+    async function objEcts(){
+        for(var i = 0; i<xlabels.length; i++){
+            x1 = xlabels[i];
+            y1 = ypres[i];
+            var jayy = {x: x1, y: y1};
+            storage.push(jayy);             
+        }
+        console.log(storage);
+        
+    }
+    
+    
+    async function graphit(){
+        await getData();
+        await objEcts();
+        const ctx = document.getElementById('myCanvas1').getContext('2d');
+        
+        const myChart = new Chart(ctx, {
+        type: 'scatter',
+        
+        data: {
+            
+            datasets: [{
+                label: 'Pressure Depth Variation',
+                data: storage,
+                backgroundcolor: [
+                    'rgba(255, 255, 255, 0)'
+                ],
+                fill: false,
+                borderColor: 'rgba(53, 36, 129, 0.774)',
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverBackgroundColor: 'red',
+                spanGaps: false,
+                showLine: false,
+                
+
+            }]
+        },
+        options: {
+            responsive:true,
+            maintainAspectRatio:false,
+            title: {
+                display:true,
+                fontSize: 12,
+                text: 'Pressure to Depth Variation',
+                fontStyle: 'bold',
+                lineHeight: 0.5,
+                },
+            legend:{
+                display: false,
+            },
+            
+            scales: {
+                scaleLabel: {
+                    display:true,
+                    lineHeiight: 0.5,
+                    },
+                gridLines:{
+                    
+                },
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false,
+                        fontSize: 10,
+                        max: 4000,
+                        min: 1000,
+                        stepSize: 500
+                        
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        color: 'white',
+                    },
+                    ticks: {
+                        fontSize: 8,
+                        max: 10000,
+                        min: 0,
+                        stepSize: 2000,
+                        
+                    }
+                }]
+                
+            }
+        }
+    });
+}
+graphit();
+    const xlabels2 = [];
+    const ygravit = [];
+    const storage2 = [];
+    
+    async function get2Data(){
+         const response2 = await fetch('gravity.csv');
+         const data2 = await response2.text();
+
+         const table2 = data2.split('\n').slice(1);
+         table2.forEach(elt2 => {
+             const columns2 = elt2.split(',')
+             const depths2 = columns2[0];
+             xlabels2.push(depths2);
+             const gravit = columns2[1];
+             ygravit.push(gravit);
+             console.log(depths2,gravit);
+             
+         });
+         console.log(xlabels2);
+         console.log(ygravit);
+    };
+    async function objEcts2(){
+        for(var i = 0; i<xlabels2.length; i++){
+            x1 = xlabels2[i];
+            y1 = ygravit[i];
+            var jayy2 = {x: x1, y: y1};
+            storage2.push(jayy2);             
+        }
+        
+        
+    }
+
+
+    async function graphit2(){
+        await get2Data();
+        await objEcts2();
+        const ctx2 = document.getElementById('myCanvas2').getContext('2d');
+        
+        const myChart2 = new Chart(ctx2, {
+        type: 'scatter',
+        
+        data: {
+            
+            datasets: [{
+                label: 'Gravity Depth Variation',
+                data: storage2,
+                backgroundcolor: [
+                    'rgba(255, 255, 255, 0)'
+                ],
+                fill: false,
+                borderColor: 'rgba(53, 36, 129, 0.774)',
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverBackgroundColor: 'red',
+                spanGaps: false,
+                showLine: false,
+            }]
+        },
+        options: {
+            responsive:true,
+            maintainAspectRatio:false,
+            title: {
+                display:true,
+                    fontSize: 12,
+                    text: 'Gas Gravity Depth Variation',
+                    fontStyle: 'bold',
+                    lineHeight: 0.5,
+                },
+            legend:{
+                display: false,
+            },
+            
+            scales: {
+                scaleLabel: {
+                    display:true,
+                    lineHeiight: 0.5,
+                    },
+                gridLines:{
+                    
+                },
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false,
+                        fontSize: 10,
+                        max: 1,
+                        min: 0.4,
+                        stepSize: 0.1,
+                    }
+                }],
+                xAxes: [{
+                    gridLines: {
+                        color: 'white',
+                    },
+                    ticks: {
+                        fontSize: 8,
+                        max: 10000,
+                        min: 0,
+                        stepSize: 2000,                        
+                    }
+                }]
+                
+            }
+        }
+    });
+}
+graphit2();
+    const xlabels3 = [];
+    const ypres2 = [];
+    const storage3 = [];
+    
+    async function get3Data(){
+         const response3 = await fetch('time.csv');
+         const data3 = await response3.text();
+
+         const table3 = data3.split('\n').slice(1);
+         table3.forEach(elt3 => {
+             const columns3 = elt3.split(',')
+             const time = columns3[0];
+             xlabels3.push(time);
+             const pres2 = columns3[1];
+             ypres2.push(pres2);
+             console.log(time,pres2);
+             
+         });
+         console.log(xlabels3);
+         console.log(ypres2);
+    };
+    async function objEcts3(){
+        for(var i = 0; i<xlabels3.length; i++){
+            x1 = xlabels3[i];
+            y1 = ypres2[i];
+            var jayy3 = {x: x1, y: y1};
+            storage3.push(jayy3);             
+        }
+        console.log(storage);
+        
+    }
+
+
+    async function graphit3(){
+        await get3Data();
+        await objEcts3();
+        Chart.defaults.global.defaultFontFamily = "'Lucida Sans Unicode', 'Lucida Grande', sans-serif";
+        
+        const ctx3 = document.getElementById('myCanvas3').getContext('2d');
+        
+        const myChart3 = new Chart(ctx3, {
+        type: 'scatter',
+        
+        data: {
+            datasets: [{
+                label: false,
+                data: storage3,
+                backgroundcolor: [
+                    'rgba(255, 255, 255, 0)'
+                ],
+                fill: false,
+                borderColor: 'rgba(53, 36, 129, 0.774)',
+                borderWidth: 2,
+                pointRadius: 0,
+                pointHoverBackgroundColor: 'red',
+                spanGaps: false,
+                showLine:false,
+                yAxisID: 'Change in Time',
+                
+
+            }]
+        },
+        options: {
+            responsive:true,
+            maintainAspectRatio:false,
+            title: {
+                display:true,
+                fontSize: 12,
+                text: 'Bottom Hole Pressure Build-Up',
+                lineHeight: 0.5,
+                fontFamily: "'Lucida Sans Unicode', 'Lucida Grande', sans-serif",
+                letterSpacing: 1.5,
+                fontStyle: 'bold',
+            },
+            legend:{
+                display: false,
+            },
+            
+            scales: {
+                scaleLabel: {
+                    display:true,
+                    lineHeiight: 0.5,
+                },
+                gridLines:{
+                    
+                },
+                yAxes: [{
+                    id: 'Change in Time',
+                    ticks: {
+                        beginAtZero: false,
+                        fontSize: 10,
+                        min: 2000,
+                        max: 6000,
+                        
+                    }
+                }],
+                xAxes: [{
+                    
+                    type: 'logarithmic',
+                    
+                    gridLines: {
+                        color: 'white',
+                    },
+                    ticks: {
+                        fontSize: 8,
+                        min: 0.001,
+                        max: 10,                        
+                    }
+                }]
+            }
+        }   
+            
+        
+    });
+}
+graphit3();
+
+</script>
+
+
+</body>
+</html>

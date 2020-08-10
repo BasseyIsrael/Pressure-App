@@ -1,0 +1,14 @@
+{
+  "name": "i-SBHP",
+  "version": "1.0.0",
+  "description": "Static Bottom Hole Pressure Calculation App",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Israel Bassey",
+  "license": "MIT",
+  "dependencies": {
+    "electron": "^8.2.3"
+  }
+}
